@@ -75,7 +75,7 @@ HTMLWidgets.widget({
                   } 
                   
                   $("."+x[j].divName).detach();
-
+                  
                   buildDiv(
                     x[j].obj,
                     x[j].divType,

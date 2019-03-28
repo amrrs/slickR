@@ -54,12 +54,11 @@
 #' if(interactive()){ 
 #' slickR(obj = nba_logos,
 #'        slideId = c('a','b','c'),
-#'        slideIdx = sx,
+#'        slideIdx = sIdx,
 #'        slideType = rep('img',3),
 #'        synchSlides = groups,
 #'        height = 100)
 #' }
-#'
 #' @import htmlwidgets 
 #' @export
 slickR <- function(obj ,
@@ -102,22 +101,31 @@ slickR <- function(obj ,
     x[[xId]]$obj <- obj[slideIdx[[xId]]]
     
     if(length(slickOpts)>0){
+      
       if(all(sapply(slickOpts,class)=='list')){
+        
         sOL <- slickOpts[[xId]]
+        
       }else{
+        
         sOL <- slickOpts
+        
       } 
 
       if(!is.null(synchSlides)){
+        
         for(j in 1:2){
           
           ss <- synchSlides[,c(1:2)[j]]%in%slideId[xId]
           
           if(any(ss)){
+            
             sOL$asNavFor <- paste0(sprintf(".%s",synchSlides[ss,c(1:2)[-j]]),collapse = ',')
+            
           }
           
         }
+        
       }
         
       
@@ -127,9 +135,6 @@ slickR <- function(obj ,
     }
   }
 
-  # forward options using x
-  
-  # create widget
   hw <- htmlwidgets::createWidget(
     name = 'slickR',
     x,
@@ -139,7 +144,10 @@ slickR <- function(obj ,
     elementId = elementId
   )
   
-  style_widget(hw=hw, "margin-left:auto;margin-right:auto")
+  style_widget(
+    hw = hw,
+    "margin-left:auto;margin-right:auto"
+  )
 }
 
 #' Shiny bindings for slickR
